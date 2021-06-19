@@ -1,4 +1,4 @@
-package com.claytoncalixto.dscatalog;
+package com.claytoncalixto.dscatalog.resources;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -25,7 +25,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import com.claytoncalixto.dscatalog.dto.ProductDTO;
-import com.claytoncalixto.dscatalog.resources.ProductResource;
 import com.claytoncalixto.dscatalog.services.ProductService;
 import com.claytoncalixto.dscatalog.services.exceptions.DatabaseException;
 import com.claytoncalixto.dscatalog.services.exceptions.ResourceNotFoundException;
@@ -109,7 +108,8 @@ public class ProductResourceTests {
 	@Test
 	public void deleteShouldReturnResourceNotFoundExceptionWhenDoesNotIdExists() throws Exception {
 
-		ResultActions result = mocMvc.perform(delete("/products/{id}", nonExistsId).accept(MediaType.APPLICATION_JSON));
+		ResultActions result = mocMvc.perform(delete("/products/{id}", nonExistsId)
+				.accept(MediaType.APPLICATION_JSON));
 		result.andExpect(status().isNotFound());
 	}
 
