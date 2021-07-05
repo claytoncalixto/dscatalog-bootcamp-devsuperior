@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.claytoncalixto.dscatalog.dto.RoleDTO;
 import com.claytoncalixto.dscatalog.dto.UserDTO;
@@ -49,7 +50,7 @@ public class UserService {
 	}
 
 	@Transactional
-	public UserDTO insert(UserInsertDTO dto) {
+	public UserDTO insert( @RequestBody UserInsertDTO dto) {
 		User entity = new User();
 		copyDtoToEntity(dto, entity);
 		entity.setPassword(passwordEncoder.encode(dto.getPassword()));
