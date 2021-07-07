@@ -1,5 +1,8 @@
 package com.claytoncalixto.dscatalog.dto;
 
+import com.claytoncalixto.dscatalog.services.validation.UserInsertValid;
+
+@UserInsertValid
 public class UserInsertDTO extends UserDTO {
 	
 	private static final long serialVersionUID = 1L;
