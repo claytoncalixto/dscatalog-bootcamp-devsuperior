@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.claytoncalixto.dscatalog.dto.RoleDTO;
 import com.claytoncalixto.dscatalog.dto.UserDTO;
 import com.claytoncalixto.dscatalog.dto.UserInsertDTO;
+import com.claytoncalixto.dscatalog.dto.UserUpdateDTO;
 import com.claytoncalixto.dscatalog.entities.Role;
 import com.claytoncalixto.dscatalog.entities.User;
 import com.claytoncalixto.dscatalog.repositories.RoleRepository;
@@ -59,7 +60,7 @@ public class UserService {
 	}
 
 	@Transactional
-	public UserDTO update(Long id, UserDTO dto) {
+	public UserDTO update(Long id, UserUpdateDTO dto) {
 		try {
 		User entity =  repository.getOne(id);
 		copyDtoToEntity(dto, entity);
