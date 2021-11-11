@@ -1,10 +1,7 @@
-package com.claytoncalixto.dscatalog.services.exceptions;
+package com.claytoncalixto.dscatalog.resources.exceptions;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.claytoncalixto.dscatalog.resources.exceptions.FieldMessage;
-import com.claytoncalixto.dscatalog.resources.exceptions.StandardError;
 
 public class ValidationError extends StandardError {
 

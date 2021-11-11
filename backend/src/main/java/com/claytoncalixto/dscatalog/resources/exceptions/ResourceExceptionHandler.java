@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.claytoncalixto.dscatalog.services.exceptions.DatabaseException;
 import com.claytoncalixto.dscatalog.services.exceptions.ResourceNotFoundException;
-import com.claytoncalixto.dscatalog.services.exceptions.ValidationError;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
