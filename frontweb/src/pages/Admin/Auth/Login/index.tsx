@@ -1,10 +1,12 @@
 import { Link, useHistory } from 'react-router-dom';
 import ButtonIcon from 'components/ButtonIcon';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { getAuthData, requestBackendLogin, saveAuthData } from 'util/requests';
+import { AuthContext } from 'AuthContext';
+import { getTokenData, requestBackendLogin, saveAuthData } from 'util/requests';
 
 import './styles.css';
+
 
 type FormData = {
   username: string;
@@ -12,7 +14,11 @@ type FormData = {
 };
 
 const Login = () => {
+
+  const { setAuthContextData } = useContext(AuthContext);
+
   const [hasError, setHasError] = useState(false);
+
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
   const history = useHistory();
@@ -20,11 +26,12 @@ const Login = () => {
   const onSubmit = (formData: FormData) => {
     requestBackendLogin(formData)
       .then((response) => {
-        saveAuthData(response.data)
-        const token = getAuthData().access_token;
-        console.log('TOKEN GERADO: ' + token);
+        saveAuthData(response.data);
         setHasError(false);
-        console.log('SUCESSO', response);
+        setAuthContextData  ({
+          authenticated: true,
+          tokenData:getTokenData()
+        })    
         history.push('/admin');
       })
       .catch((error) => {
