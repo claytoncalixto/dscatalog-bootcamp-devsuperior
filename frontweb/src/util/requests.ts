@@ -113,13 +113,12 @@ axios.interceptors.response.use(function (response) {
      const tokenData = getTokenData();
 
      if (tokenData !== undefined) {
-         //Essa forma
+         //Essa forma para verificar se o usuário possui alguma Role
          for ( var i = 0; i < roles.length; i++) {
              if (tokenData.authorities.includes(roles[i])) {
                 return true;
              }
          }
-
          //Ou desta forma abaixo do "for" acima sem o "if" dentro.
          //return  roles.some(role => tokenData.authorities.includes(role));
      }
