@@ -1,4 +1,4 @@
-import ProductCrudCard from 'components/ProductCrudCard';
+import ProductCrudCard from 'pages/Admin/Products/ProductCrudCard';
 import { Link } from 'react-router-dom';
 
 import './styles.css';
@@ -16,7 +16,7 @@ const List = () => {
     categories: [
       {
         id: 1,
-        name: 'Livros',
+        name: 'Eletronicos',
       },
       {
         id: 3,
