@@ -1,8 +1,9 @@
 import { AxiosRequestConfig } from 'axios';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory, useParams } from 'react-router-dom';
 import Select from 'react-select';
+import { Category } from 'types/category';
 import { Product } from 'types/product';
 import { requestBackend } from 'util/requests';
 
@@ -13,18 +14,13 @@ type UrlParams = {
 };
 
 const Form = () => {
-
-  const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
-  ]
-
   const { productId } = useParams<UrlParams>();
 
   const isEditing = productId !== 'create';
 
   const history = useHistory();
+
+  const [selectCategories, setSelectCategories] = useState<Category[]>([]);
 
   const {
     register,
@@ -34,9 +30,14 @@ const Form = () => {
   } = useForm<Product>();
 
   useEffect(() => {
+    requestBackend({ url: '/categories' }).then(response => {
+      setSelectCategories(response.data.content);
+    })
+  }, []);
+
+  useEffect(() => {
     if (isEditing) {
       requestBackend({ url: `/products/${productId}` }).then((response) => {
-
         const product = response.data as Product;
 
         setValue('name', product.name);
@@ -98,15 +99,15 @@ const Form = () => {
                 </div>
               </div>
 
-
               <div className="margin-bottom-30 ">
-                <Select 
-                options={options}
-                classNamePrefix="product-crud-select"
-                isMulti
+                <Select
+                  options={selectCategories}
+                  classNamePrefix="product-crud-select"
+                  isMulti
+                  getOptionLabel={(category: Category) => category.name }
+                  getOptionValue={(category: Category) => String(category.id) }
                 />
               </div>
-
 
               <div className="margin-bottom-30 ">
                 <input
